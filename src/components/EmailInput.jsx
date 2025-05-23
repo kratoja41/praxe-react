@@ -1,3 +1,5 @@
+import {Input} from "antd";
+
 export default function EmailInput({ email, onChange, setError }) {
     const handleBlur = () => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -13,17 +15,18 @@ export default function EmailInput({ email, onChange, setError }) {
 
     return (
         <>
-            <label htmlFor="email">
+            <label htmlFor="email" className={"label"}>
                 Email <span className="red">*</span>
             </label>
-            <input
+            <Input size={"large"}
                 type="text"
                 id="email"
                 placeholder="Zadejte Váš email"
                 value={email}
                 onChange={onChange}
                 onBlur={handleBlur}
-            />
+                   className={"input"}
+            ></Input>
         </>
     );
 }
