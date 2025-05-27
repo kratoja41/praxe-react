@@ -43,7 +43,7 @@ export default function LoginForm() {
             {error && <div className="error-toast">{error}</div>}
 
             <img
-                src="/image/mojeaamberkey.svg"
+                src="./image/mojeaamberkey.svg"
                 alt="Moje Amber Logo"
                 className="main-logo"
             />

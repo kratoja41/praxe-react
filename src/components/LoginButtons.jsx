@@ -4,8 +4,8 @@ import {Link} from "react-router-dom";
 export default function LoginButtons() {
     return (
         <>
-            <Button type="link" >
-                <Link to="/lost-password">Zapomenuté heslo</Link>
+            <Button type="link" className={"link-container"}>
+                <Link to="/lost-password"> 🔒<span className={"link-password"}>Zapomenuté heslo</span></Link>
 
             </Button>
             <Button  type={"primary"} className={"btn"}  htmlType="submit" >
