@@ -19,8 +19,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: 🛠️ Build project
+        run: |
+          export PUBLIC_URL=.
+          npm install
+          npm run build
 
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.1
