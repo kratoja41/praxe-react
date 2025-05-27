@@ -13,7 +13,6 @@ export default function EmailInput({ email, onChange, setError }) {
             setError(""); // validní
         }
     };
-
     return (
         <>
             <label htmlFor="email" className={"label"}>

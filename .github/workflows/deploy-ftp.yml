@@ -1,32 +1,23 @@
-name: Deploy to FTP
+name: 🚀 FTP Deploy (Test)
 
 on:
   push:
-    branches: [ "production" ]
+    branches:
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: 📥 Checkout kódu
+        uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: FTP Deploy
+      - name: 🚀 Deploy přes FTP (test bez secrets)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.1
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          server: tla01.vas-server.cz
+          username: studenti
+          password: Studenti_2025
           local-dir: ./build/
-          server-dir: "/kratoja/"
+          server-dir: /kratoja/
