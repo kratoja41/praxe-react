@@ -1,8 +1,5 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Header from "./components/Header";
-import Footer from "./components/Fotter";
-import LoginForm from "./components/LoginForm";
 import ProtectedRoute from "./components/ProtectedRoute";
 import './styles/main.sass';
 import 'antd/dist/reset.css';
@@ -10,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/HomePage';
 import LostPassPage from "./pages/LostPassPage";
 import LoginPage from "./pages/LoginPage";
+import ToDoList from "./components/ToDoList";
 
 
 function App() {
@@ -17,6 +15,7 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path="/" element={<Home/>}/>
+
                 <Route
                     path="/loginPage"
                     element={
@@ -26,6 +25,7 @@ function App() {
                     }
                 />
                 <Route path="/lost-password" element={<LostPassPage/>} />
+                <Route path="/ToDO-list"     element={<ToDoList/>} />
             </Routes>
         </div>
     );

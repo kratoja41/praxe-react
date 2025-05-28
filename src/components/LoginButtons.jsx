@@ -20,7 +20,7 @@ export default function LoginButtons() {
 
             <p className="existing-donor">
                 Jste náš stávající dárce a nemůžete se přihlásit?
-                <a href="#">Klikněte zde</a> a nastavte si heslo.
+
             </p>
         </>
     );
