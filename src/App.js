@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/HomePage';
 import LostPassPage from "./pages/LostPassPage";
 import LoginPage from "./pages/LoginPage";
+import ToDoList from "./components/ToDoList";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                     }
                 />
                 <Route path="/lost-password" element={<LostPassPage/>} />
+                <Route path="/ToDO-list"     element={<ToDoList/>} />
             </Routes>
         </div>
     );

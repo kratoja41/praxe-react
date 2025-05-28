@@ -1,5 +1,9 @@
-
+import Header from "../components/Header";
 import { useNavigate } from 'react-router-dom';
+import ToDoList from "../components/ToDoList";
+import Footer from "../components/Fotter";
+import {Button} from "antd";
+
 export default function LoginPage() {
     const navigate = useNavigate();
 
@@ -9,8 +13,12 @@ export default function LoginPage() {
     }
     return (
         <div className="login-page">
-            <h1>Funguje</h1>
-            <button onClick={handleLogout}>Odhlásit se</button>
+            <Header></Header>
+            <ToDoList></ToDoList>
+            <Button onClick={handleLogout}  type={"primary"} className={"btnToDoList"}   htmlType="submit">
+                Odhlásit se
+            </Button>
+            <Footer></Footer>
         </div>
     );
 }
