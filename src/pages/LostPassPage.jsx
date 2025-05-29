@@ -1,14 +1,14 @@
 import Header from '../components/Header';
 import Footer from '../components/Fotter';
 import {Link} from "react-router-dom";
-import LostPassword from "../components/LostPassword"
-import HabaToDoList from "../components/HabaToDoList"
+import PostsList from "../components/PostsList";
+
 export default function LostPassPage() {
     return (
         <>
 
             <div className="App">
-             <HabaToDoList></HabaToDoList>
+             <PostsList></PostsList>
             </div>
             <Link to={"/"}>Domů</Link>
         </>
