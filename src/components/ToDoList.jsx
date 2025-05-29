@@ -7,8 +7,8 @@ export default function ToDoList() {
     const [todos, setTodos] = useState([]);
     const [inputValue, setInputValue] = useState("");
     const [sortOrder, setSortOrder] = useState("newest");
-    const [editIndex, setEditIndex] = useState(null); // Který index právě upravujeme
-    const [editValue, setEditValue] = useState(""); // Aktuální hodnota pro editaci
+    const [editId, setEditId] = useState(null);
+    const [editValue, setEditValue] = useState("");
 
     useEffect(() => {
         const stored = JSON.parse(localStorage.getItem("todos")) || [];
@@ -31,21 +31,25 @@ export default function ToDoList() {
         }
     };
 
-    const toggleTodo = (index) => {
-        const updated = [...todos];
-        updated[index].completed = !updated[index].completed;
+    const toggleTodo = (createdAt) => {
+        const updated = todos.map((todo) =>
+            todo.createdAt === createdAt
+                ? { ...todo, completed: !todo.completed }
+                : todo
+        );
         setTodos(updated);
     };
 
-    const deleteTodo = (index) => {
-        setTodos(todos.filter((_, i) => i !== index));
+    const deleteTodo = (createdAt) => {
+        setTodos(todos.filter((todo) => todo.createdAt !== createdAt));
     };
 
-    const saveEdit = (index) => {
-        const updated = [...todos];
-        updated[index].text = editValue;
+    const saveEdit = (createdAt) => {
+        const updated = todos.map((todo) =>
+            todo.createdAt === createdAt ? { ...todo, text: editValue } : todo
+        );
         setTodos(updated);
-        setEditIndex(null);
+        setEditId(null);
         setEditValue("");
     };
 
@@ -57,7 +61,7 @@ export default function ToDoList() {
 
     return (
         <div style={{ maxWidth: 500, margin: "2rem auto" }}>
-            <Space style={{marginBottom: 16}} direction="vertical" size="middle">
+            <Space style={{ marginBottom: 16 }} direction="vertical" size="middle">
                 <img
                     src="../image/mojeaamberkey.svg"
                     alt="Moje Amber Logo"
@@ -75,7 +79,7 @@ export default function ToDoList() {
                 <Select
                     value={sortOrder}
                     onChange={(value) => setSortOrder(value)}
-                    style={{width: 200}}
+                    style={{ width: 200 }}
                 >
                     <Option value="newest">Nejnovější nahoře</Option>
                     <Option value="oldest">Nejstarší nahoře</Option>
@@ -85,40 +89,44 @@ export default function ToDoList() {
             <List
                 bordered
                 dataSource={sortedTodos}
-                renderItem={(item, index) => (
-                    <List.Item
-                        actions={[
-                            editIndex === index ? (
-                                <Button type="link" onClick={() => saveEdit(index)}>
-                                    Uložit
-                                </Button>
-                            ) : (
-                                <Button
-                                    type="link"
-                                    onClick={() => {
-                                        setEditIndex(index);
-                                        setEditValue(item.text);
-                                    }}
-                                >
-                                    Upravit
-                                </Button>
-                            ),
-                            <Button type="link" danger onClick={() => deleteTodo(index)}>
-                                Smazat
-                            </Button>,
-                        ]}
+                renderItem={(item) => (
+                    <List.Item key={item.createdAt}
+                               actions={[
+                                   editId === item.createdAt ? (
+                                       <Button type="link" onClick={() => saveEdit(item.createdAt)}>
+                                           Uložit
+                                       </Button>
+                                   ) : (
+                                       <Button
+                                           type="link"
+                                           onClick={() => {
+                                               setEditId(item.createdAt);
+                                               setEditValue(item.text);
+                                           }}
+                                       >
+                                           Upravit
+                                       </Button>
+                                   ),
+                                   <Button
+                                       type="link"
+                                       danger
+                                       onClick={() => deleteTodo(item.createdAt)}
+                                   >
+                                       Smazat
+                                   </Button>,
+                               ]}
                     >
                         <Checkbox
                             checked={item.completed}
-                            onChange={() => toggleTodo(index)}
+                            onChange={() => toggleTodo(item.createdAt)}
                             style={{ marginRight: 8 }}
                         />
                         <div style={{ textAlign: "left", marginLeft: 8 }}>
-                            {editIndex === index ? (
+                            {editId === item.createdAt ? (
                                 <Input
                                     value={editValue}
                                     onChange={(e) => setEditValue(e.target.value)}
-                                    onPressEnter={() => saveEdit(index)}
+                                    onPressEnter={() => saveEdit(item.createdAt)}
                                 />
                             ) : (
                                 <>
